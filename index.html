@@ -1,0 +1,686 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="theme-color" content="#D4A5A5">
+    <title>ChocoBloom Bakery</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Cormorant+Garamond:wght@400;500;600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --rosa-empolvado: #D4A5A5;
+            --rosa-claro: #E8C4C4;
+            --rosa-suave: #F5E6E0;
+            --dorado: #C9A96E;
+            --dorado-oscuro: #B8956A;
+            --crema: #FAF7F2;
+            --crema-oscuro: #F5EDE0;
+            --chocolate: #6B4423;
+            --chocolate-claro: #8B6F47;
+            --texto: #4A3728;
+            --texto-suave: #8B7355;
+            --white: #FFFFFF;
+            --shadow: 0 4px 20px rgba(107, 68, 35, 0.08);
+            --shadow-fuerte: 0 8px 30px rgba(107, 68, 35, 0.12);
+            --radius: 20px;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--crema);
+            color: var(--texto);
+            overflow-x: hidden;
+            overscroll-behavior-y: none;
+            padding-bottom: 90px;
+        }
+
+        h1, h2, h3 { font-family: 'Cormorant Garamond', serif; color: var(--chocolate); }
+
+        /* Logo SVG */
+        .logo-svg { height: 42px; width: auto; }
+
+        /* App Header */
+        .app-header {
+            background: rgba(250, 247, 242, 0.95);
+            backdrop-filter: blur(12px);
+            padding: 14px 20px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(212, 165, 165, 0.15);
+        }
+        .cart-btn { 
+            background: var(--white); border: none; width: 44px; height: 44px; 
+            border-radius: 50%; display: flex; align-items: center; justify-content: center; 
+            font-size: 1.2rem; position: relative; cursor: pointer;
+            box-shadow: var(--shadow);
+        }
+        .cart-badge {
+            position: absolute; top: -2px; right: -2px;
+            background: var(--dorado); color: white;
+            font-size: 0.7rem; width: 20px; height: 20px;
+            border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            font-weight: 700; border: 2px solid var(--crema);
+        }
+
+        /* Views & Transitions */
+        .screen {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: var(--crema); overflow-y: auto; padding-bottom: 100px;
+            transform: translateX(100%); transition: transform 0.35s cubic-bezier(0.4, 0.0, 0.2, 1);
+            z-index: 50; display: flex; flex-direction: column;
+        }
+        .screen.active { transform: translateX(0); z-index: 60; }
+        .screen.main-view { position: relative; transform: translateX(0); z-index: 10; height: auto; min-height: 100vh; padding-bottom: 100px; }
+
+        .container { padding: 20px; max-width: 500px; margin: 0 auto; }
+
+        /* Hero */
+        .hero {
+            background: linear-gradient(135deg, var(--rosa-suave) 0%, var(--crema-oscuro) 100%);
+            border-radius: var(--radius);
+            padding: 28px 24px;
+            margin-bottom: 24px;
+            box-shadow: var(--shadow);
+            position: relative;
+            overflow: hidden;
+        }
+        .hero::before {
+            content: '🍪';
+            position: absolute;
+            top: -20px;
+            right: -10px;
+            font-size: 6rem;
+            opacity: 0.15;
+            transform: rotate(15deg);
+        }
+        .hero h2 { font-size: 1.8rem; margin-bottom: 8px; font-weight: 600; }
+        .hero p { color: var(--texto-suave); font-size: 0.9rem; margin-bottom: 18px; line-height: 1.5; }
+
+        /* Categories */
+        .categories { display: flex; gap: 10px; overflow-x: auto; padding-bottom: 12px; margin-bottom: 20px; scrollbar-width: none; }
+        .categories::-webkit-scrollbar { display: none; }
+        .category-pill {
+            background: var(--white); border: 1px solid var(--rosa-claro);
+            color: var(--chocolate); padding: 10px 22px; border-radius: 50px;
+            white-space: nowrap; font-size: 0.85rem; font-weight: 500; cursor: pointer;
+            transition: all 0.2s; font-family: 'Poppins', sans-serif;
+        }
+        .category-pill.active { 
+            background: var(--rosa-empolvado); 
+            color: var(--white); 
+            border-color: var(--rosa-empolvado); 
+        }
+
+        /* Product Grid */
+        .product-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+        .product-card {
+            background: var(--white); border-radius: var(--radius);
+            overflow: hidden; box-shadow: var(--shadow); cursor: pointer;
+            transition: transform 0.15s;
+        }
+        .product-card:active { transform: scale(0.97); }
+        .product-img {
+            width: 100%; height: 130px; background: linear-gradient(135deg, var(--crema-oscuro) 0%, var(--rosa-suave) 100%);
+            display: flex; align-items: center; justify-content: center; font-size: 3.5rem;
+        }
+        .product-info { padding: 14px; }
+        .product-name { font-weight: 600; font-size: 0.95rem; margin-bottom: 4px; color: var(--chocolate); font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; }
+        .product-desc { font-size: 0.72rem; color: var(--texto-suave); margin-bottom: 10px; line-height: 1.3; height: 32px; overflow: hidden; }
+        .product-footer { display: flex; justify-content: space-between; align-items: center; }
+        .product-price { color: var(--dorado-oscuro); font-weight: 700; font-size: 1.05rem; }
+        .btn-add-mini {
+            width: 34px; height: 34px; border-radius: 50%;
+            background: var(--rosa-empolvado); color: white; border: none;
+            font-size: 1.2rem; display: flex; align-items: center; justify-content: center; cursor: pointer;
+            transition: all 0.2s;
+        }
+        .btn-add-mini:active { background: var(--dorado); }
+
+        /* Detail Screen */
+        .detail-header { padding: 14px 20px; display: flex; align-items: center; gap: 12px; background: var(--crema); position: sticky; top: 0; z-index: 10; }
+        .back-btn { background: var(--white); border: none; width: 40px; height: 40px; border-radius: 50%; font-size: 1.1rem; cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: var(--shadow); color: var(--chocolate); }
+        .detail-img { width: 100%; height: 240px; background: linear-gradient(135deg, var(--crema-oscuro) 0%, var(--rosa-suave) 100%); display: flex; align-items: center; justify-content: center; font-size: 7rem; }
+        .detail-content { padding: 24px 20px 120px 20px; background: var(--white); border-radius: 24px 24px 0 0; margin-top: -24px; position: relative; flex: 1; }
+        .detail-title { font-size: 1.7rem; margin-bottom: 8px; font-weight: 600; }
+        .detail-price { color: var(--dorado-oscuro); font-weight: 700; font-size: 1.4rem; margin-bottom: 20px; font-family: 'Cormorant Garamond', serif; }
+        
+        .topping-option { 
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 14px; background: var(--crema); border-radius: 14px; margin-bottom: 10px; 
+            border: 2px solid transparent; cursor: pointer; transition: all 0.2s;
+        }
+        .topping-option.selected { border-color: var(--dorado); background: var(--crema-oscuro); }
+        .topping-name { font-weight: 500; font-size: 0.9rem; }
+        .topping-price { font-weight: 600; color: var(--dorado-oscuro); font-size: 0.85rem; }
+
+        .qty-control { display: flex; align-items: center; gap: 24px; margin: 24px 0; justify-content: flex-start; }
+        .qty-btn { width: 44px; height: 44px; border-radius: 50%; border: 2px solid var(--rosa-empolvado); background: white; font-size: 1.4rem; cursor: pointer; display: flex; align-items: center; justify-content: center; color: var(--chocolate); font-weight: 600; }
+        .qty-value { font-size: 1.5rem; font-weight: 700; min-width: 30px; text-align: center; color: var(--chocolate); }
+
+        .bottom-action-bar {
+            position: fixed; bottom: 0; left: 0; right: 0;
+            background: var(--white); padding: 16px 20px 30px 20px;
+            box-shadow: 0 -4px 20px rgba(107, 68, 35, 0.08);
+            display: flex; align-items: center; justify-content: space-between;
+            z-index: 200;
+        }
+        .total-price { font-size: 1.3rem; font-weight: 700; color: var(--chocolate); font-family: 'Cormorant Garamond', serif; }
+        .total-label { font-size: 0.75rem; color: var(--texto-suave); font-weight: 500; text-transform: uppercase; letter-spacing: 0.5px; }
+
+        /* Cart Screen */
+        .cart-item { 
+            display: flex; gap: 14px; background: var(--white); padding: 16px; 
+            border-radius: 16px; margin-bottom: 12px; box-shadow: var(--shadow); 
+        }
+        .cart-item-img { width: 60px; height: 60px; background: linear-gradient(135deg, var(--crema-oscuro) 0%, var(--rosa-suave) 100%); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 2rem; flex-shrink: 0; }
+        .cart-item-info { flex: 1; }
+        .cart-item-info h4 { font-size: 1rem; margin-bottom: 4px; font-family: 'Cormorant Garamond', serif; font-weight: 600; font-size: 1.15rem; }
+        .cart-item-info p { font-size: 0.78rem; color: var(--texto-suave); margin-bottom: 8px; }
+        .cart-item-actions { display: flex; justify-content: space-between; align-items: center; }
+        .remove-btn { background: none; border: none; color: var(--rosa-empolvado); font-size: 0.8rem; font-weight: 600; cursor: pointer; }
+
+        .form-group { margin-bottom: 20px; }
+        .form-group label { display: block; font-weight: 600; margin-bottom: 8px; color: var(--chocolate); font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.5px; }
+        .form-control {
+            width: 100%; padding: 16px; border: 1px solid var(--rosa-claro); border-radius: 14px;
+            font-family: 'Poppins', sans-serif; font-size: 0.9rem; background: var(--white);
+            appearance: none; color: var(--texto);
+        }
+        .form-control:focus { outline: none; border-color: var(--dorado); }
+        .payment-options { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; }
+        .payment-option {
+            padding: 14px; border: 2px solid var(--rosa-claro); border-radius: 14px;
+            text-align: center; cursor: pointer; font-weight: 600; background: var(--white); font-size: 0.85rem;
+            transition: all 0.2s; color: var(--chocolate);
+        }
+        .payment-option.selected { border-color: var(--dorado); background: var(--crema-oscuro); color: var(--dorado-oscuro); }
+
+        .summary-box { background: var(--white); padding: 20px; border-radius: 16px; margin-top: 10px; box-shadow: var(--shadow); }
+        .summary-row { display: flex; justify-content: space-between; margin-bottom: 12px; font-size: 0.9rem; color: var(--texto-suave); }
+        .summary-total { font-size: 1.2rem; font-weight: 700; color: var(--chocolate); border-top: 1px dashed var(--rosa-claro); padding-top: 14px; margin-top: 14px; font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; }
+
+        /* Confirmation Screen */
+        .confirmation-content { text-align: center; padding: 40px 24px; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 80vh; }
+        .success-icon { font-size: 5rem; margin-bottom: 20px; animation: pop 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+        @keyframes pop { 0% { transform: scale(0); } 100% { transform: scale(1); } }
+        .stars { font-size: 2.5rem; color: var(--rosa-claro); margin: 24px 0; cursor: pointer; letter-spacing: 6px; }
+        .stars .active { color: var(--dorado); }
+
+        /* Bottom Nav */
+        .bottom-nav {
+            position: fixed; bottom: 0; left: 0; right: 0;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(12px);
+            box-shadow: 0 -4px 20px rgba(107, 68, 35, 0.06);
+            display: flex; justify-content: space-around;
+            padding: 12px 0 28px 0;
+            z-index: 150;
+            border-top: 1px solid rgba(212, 165, 165, 0.15);
+        }
+        .nav-item {
+            display: flex; flex-direction: column; align-items: center;
+            color: var(--texto-suave); text-decoration: none; font-size: 0.7rem;
+            cursor: pointer; transition: color 0.2s; flex: 1; font-weight: 500;
+        }
+        .nav-item.active { color: var(--dorado-oscuro); }
+        .nav-icon { font-size: 1.5rem; margin-bottom: 4px; }
+
+        /* Utilities */
+        .hidden { display: none !important; }
+        .btn-primary {
+            background: var(--chocolate); color: var(--white); border: none;
+            padding: 16px 28px; border-radius: 50px; font-size: 0.95rem; font-weight: 600;
+            cursor: pointer; width: 100%; transition: all 0.2s; font-family: 'Poppins', sans-serif;
+            box-shadow: 0 4px 12px rgba(107, 68, 35, 0.25);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .btn-primary:active { transform: scale(0.98); background: var(--chocolate-claro); }
+        .btn-whatsapp {
+            background: #25D366; color: white; border: none;
+            padding: 16px 28px; border-radius: 50px; font-size: 0.95rem; font-weight: 600;
+            cursor: pointer; width: 100%; display: flex; align-items: center; justify-content: center; gap: 10px;
+            box-shadow: 0 4px 12px rgba(37, 211, 102, 0.3);
+        }
+        .btn-whatsapp:active { transform: scale(0.98); background: #128C7E; }
+
+        /* Section titles */
+        .section-title { 
+            font-family: 'Cormorant Garamond', serif; 
+            font-size: 1.4rem; 
+            font-weight: 600; 
+            color: var(--chocolate); 
+            margin-bottom: 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- MAIN VIEW (HOME) -->
+    <div class="screen main-view" id="homeScreen">
+        <header class="app-header">
+            <!-- Logo oficial SVG -->
+            <svg class="logo-svg" viewBox="0 0 280 50" xmlns="http://www.w3.org/2000/svg">
+                <text x="0" y="32" font-family="Cormorant Garamond, serif" font-size="30" font-weight="600" fill="#D4A5A5" letter-spacing="1">CH</text>
+                <!-- Galleta reemplazando la O -->
+                <g transform="translate(52, 10)">
+                    <circle cx="12" cy="12" r="11" fill="#D4A5A5"/>
+                    <circle cx="8" cy="9" r="2" fill="#FAF7F2"/>
+                    <circle cx="15" cy="8" r="1.5" fill="#FAF7F2"/>
+                    <circle cx="10" cy="15" r="1.8" fill="#FAF7F2"/>
+                    <circle cx="16" cy="14" r="1.3" fill="#FAF7F2"/>
+                    <circle cx="12" cy="11" r="1.5" fill="#FAF7F2"/>
+                </g>
+                <text x="78" y="32" font-family="Cormorant Garamond, serif" font-size="30" font-weight="600" fill="#D4A5A5" letter-spacing="1">COBLOOM</text>
+                <text x="95" y="48" font-family="Playfair Display, serif" font-style="italic" font-size="22" fill="#C9A96E">bakery</text>
+            </svg>
+            <button class="cart-btn" onclick="openScreen('cartScreen')">
+                🛒
+                <span class="cart-badge" id="cartCount">0</span>
+            </button>
+        </header>
+
+        <div class="container">
+            <div class="hero">
+                <h2>Break Universitario 🎓</h2>
+                <p>Pide en 1 minuto y recoge en tu descanso. Postres artesanales pensados para ti.</p>
+            </div>
+
+            <div class="categories">
+                <div class="category-pill active">Todos</div>
+                <div class="category-pill">Brownies</div>
+                <div class="category-pill">Cajas Sorpresa</div>
+                <div class="category-pill">Galletas</div>
+            </div>
+
+            <div class="product-grid" id="catalog">
+                <!-- Products injected by JS -->
+            </div>
+        </div>
+    </div>
+
+    <!-- DETAIL SCREEN -->
+    <div class="screen" id="detailScreen">
+        <div class="detail-header">
+            <button class="back-btn" onclick="closeScreen('detailScreen')">←</button>
+            <span style="font-weight: 600; font-size: 1rem; color: var(--chocolate); font-family: 'Cormorant Garamond', serif;">Detalle del producto</span>
+        </div>
+        <div class="detail-img" id="detailImg">🍫</div>
+        <div class="detail-content">
+            <h2 class="detail-title" id="detailName">Nombre del Producto</h2>
+            <p style="color: var(--texto-suave); line-height: 1.6; margin-bottom: 16px; font-size: 0.9rem;" id="detailDesc">Descripción del producto.</p>
+            <div class="detail-price" id="detailPrice">S/ 0.00</div>
+
+            <h3 class="section-title">✨ Toppings (Opcional)</h3>
+            <div class="topping-option" onclick="toggleTopping(this, 1.00)">
+                <span class="topping-name">🍓 Fresas frescas</span>
+                <span class="topping-price">+S/ 1.00</span>
+            </div>
+            <div class="topping-option" onclick="toggleTopping(this, 1.50)">
+                <span class="topping-name">🍫 Extra chocolate</span>
+                <span class="topping-price">+S/ 1.50</span>
+            </div>
+            <div class="topping-option" onclick="toggleTopping(this, 2.00)">
+                <span class="topping-name">🍦 Helado de vainilla</span>
+                <span class="topping-price">+S/ 2.00</span>
+            </div>
+
+            <div class="qty-control">
+                <button class="qty-btn" onclick="changeQty(-1)">−</button>
+                <span class="qty-value" id="qtyValue">1</span>
+                <button class="qty-btn" onclick="changeQty(1)">+</button>
+            </div>
+        </div>
+
+        <div class="bottom-action-bar">
+            <div>
+                <div class="total-label">Total</div>
+                <div class="total-price" id="detailTotal">S/ 0.00</div>
+            </div>
+            <button class="btn-primary" style="width: auto; padding: 14px 28px;" onclick="addToCart()">Agregar al pedido</button>
+        </div>
+    </div>
+
+    <!-- CART SCREEN -->
+    <div class="screen" id="cartScreen">
+        <div class="detail-header">
+            <button class="back-btn" onclick="closeScreen('cartScreen')">←</button>
+            <span style="font-weight: 600; font-size: 1rem; color: var(--chocolate); font-family: 'Cormorant Garamond', serif;">Tu pedido</span>
+        </div>
+        <div class="container" style="padding-top: 10px;">
+            <div id="cartItemsList"></div>
+
+            <div id="checkoutForm" class="hidden">
+                <div class="form-group">
+                    <label> Punto de recojo</label>
+                    <select class="form-control" id="pickupPoint">
+                        <option>Facultad de Ingeniería (Patio)</option>
+                        <option>Facultad de Ciencias de la Comunicación</option>
+                        <option>Biblioteca Principal</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>⏰ Hora de recojo</label>
+                    <select class="form-control" id="pickupTime">
+                        <option>10:00 AM - 10:30 AM (Refrigerio)</option>
+                        <option>1:00 PM - 1:30 PM (Almuerzo)</option>
+                        <option>3:00 PM - 3:30 PM (Salida)</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>💳 Método de pago</label>
+                    <div class="payment-options">
+                        <div class="payment-option selected" onclick="selectPayment(this, 'Yape')">Yape</div>
+                        <div class="payment-option" onclick="selectPayment(this, 'Plin')">Plin</div>
+                        <div class="payment-option" onclick="selectPayment(this, 'Efectivo')">Efectivo</div>
+                    </div>
+                </div>
+
+                <div class="summary-box">
+                    <div class="summary-row"><span>Subtotal</span><span id="summarySubtotal">S/ 0.00</span></div>
+                    <div class="summary-row"><span>Delivery (Campus)</span><span>S/ 0.00</span></div>
+                    <div class="summary-row summary-total"><span>Total a pagar</span><span id="summaryTotal">S/ 0.00</span></div>
+                </div>
+
+                <button class="btn-whatsapp" style="margin-top: 24px;" onclick="confirmOrder()">
+                    <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+                    Confirmar por WhatsApp
+                </button>
+                <p style="text-align: center; font-size: 0.78rem; color: var(--texto-suave); margin-top: 16px; line-height: 1.4;">
+                    Te enviaremos la confirmación y el QR de pago al instante.
+                </p>
+            </div>
+            
+            <div id="emptyCart" class="hidden" style="text-align: center; padding: 60px 20px; color: var(--texto-suave);">
+                <div style="font-size: 4rem; margin-bottom: 16px;">🛒</div>
+                <p style="font-weight: 600; font-size: 1.1rem; margin-bottom: 8px; color: var(--chocolate); font-family: 'Cormorant Garamond', serif;">Tu carrito está vacío</p>
+                <p style="font-size: 0.85rem; margin-bottom: 24px;">¡Agrega un postre para tu break!</p>
+                <button class="btn-primary" style="width: auto; padding: 14px 32px;" onclick="closeScreen('cartScreen')">Ver catálogo</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- CONFIRMATION SCREEN -->
+    <div class="screen" id="confirmationScreen">
+        <div class="confirmation-content">
+            <div class="success-icon"></div>
+            <h2 style="font-size: 2rem; margin-bottom: 12px; font-weight: 600;">¡Pedido confirmado!</h2>
+            <p style="color: var(--texto-suave); margin-bottom: 8px; font-size: 0.95rem;">Tu pedido <strong style="color: var(--dorado-oscuro);">#CB-<span id="orderNumber"></span></strong></p>
+            <p style="color: var(--texto-suave); font-size: 0.9rem; margin-bottom: 32px; line-height: 1.6;">Está siendo preparado. Nos vemos en el punto de recojo a la hora elegida. ¡Buen provecho!</p>
+            
+            <h3 style="font-size: 1rem; margin-bottom: 12px; font-family: 'Poppins', sans-serif; font-weight: 600; color: var(--chocolate);">¿Cómo calificarías tu experiencia?</h3>
+            <div class="stars" onclick="rateExperience(event)">
+                <span data-value="1">★</span><span data-value="2">★</span><span data-value="3">★</span><span data-value="4">★</span><span data-value="5">★</span>
+            </div>
+            <p id="ratingText" style="font-size: 0.85rem; color: var(--dorado-oscuro); font-weight: 500; min-height: 24px;"></p>
+
+            <button class="btn-primary" style="margin-top: 32px; max-width: 300px;" onclick="resetApp()">Hacer otro pedido</button>
+        </div>
+    </div>
+
+    <!-- BOTTOM NAVIGATION -->
+    <nav class="bottom-nav">
+        <div class="nav-item active" onclick="goHome()" id="nav-home">
+            <span class="nav-icon">🏠</span>
+            <span>Inicio</span>
+        </div>
+        <div class="nav-item" onclick="openScreen('cartScreen')" id="nav-cart">
+            <span class="nav-icon">📋</span>
+            <span>Pedidos</span>
+        </div>
+        <div class="nav-item" onclick="alert('Función de perfil en desarrollo para el MVP')" id="nav-profile">
+            <span class="nav-icon">👤</span>
+            <span>Perfil</span>
+        </div>
+    </nav>
+
+    <script>
+        // Data
+        const products = [
+            { id: 1, name: "Brownie Break", price: 5.00, emoji: "🍫", desc: "Chocolate intenso con nueces, ideal para el entre clases." },
+            { id: 2, name: "Caja Sorpresa", price: 15.00, emoji: "🎁", desc: "Mix de 3 postres del día. Perfecto para compartir." },
+            { id: 3, name: "Cookie Gigante", price: 6.50, emoji: "🍪", desc: "Artesanal con chispas de chocolate y centro suave." },
+            { id: 4, name: "Cheesecake Maracuyá", price: 8.00, emoji: "🍰", desc: "Cremoso y refrescante para el calor de Ica." }
+        ];
+
+        let cart = [];
+        let currentProduct = null;
+        let currentQty = 1;
+        let selectedToppings = [];
+        let selectedPayment = 'Yape';
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            renderCatalog();
+        });
+
+        // Render Catalog
+        function renderCatalog() {
+            const grid = document.getElementById('catalog');
+            grid.innerHTML = products.map(p => `
+                <div class="product-card" onclick="openDetail(${p.id})">
+                    <div class="product-img">${p.emoji}</div>
+                    <div class="product-info">
+                        <div class="product-name">${p.name}</div>
+                        <div class="product-desc">${p.desc}</div>
+                        <div class="product-footer">
+                            <div class="product-price">S/ ${p.price.toFixed(2)}</div>
+                            <button class="btn-add-mini" onclick="event.stopPropagation(); quickAdd(${p.id})">+</button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Navigation
+        function openScreen(screenId) {
+            document.getElementById(screenId).classList.add('active');
+            document.body.style.overflow = 'hidden';
+            if (screenId === 'cartScreen') renderCart();
+        }
+
+        function closeScreen(screenId) {
+            document.getElementById(screenId).classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        function goHome() {
+            document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+            document.body.style.overflow = '';
+            document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+            document.getElementById('nav-home').classList.add('active');
+        }
+
+        // Detail View Logic
+        function openDetail(id) {
+            currentProduct = products.find(p => p.id === id);
+            currentQty = 1;
+            selectedToppings = [];
+            
+            document.getElementById('detailImg').textContent = currentProduct.emoji;
+            document.getElementById('detailName').textContent = currentProduct.name;
+            document.getElementById('detailDesc').textContent = currentProduct.desc;
+            document.getElementById('detailPrice').textContent = `S/ ${currentProduct.price.toFixed(2)}`;
+            document.getElementById('qtyValue').textContent = currentQty;
+            
+            document.querySelectorAll('.topping-option').forEach(t => t.classList.remove('selected'));
+            updateDetailTotal();
+            openScreen('detailScreen');
+        }
+
+        function changeQty(delta) {
+            currentQty = Math.max(1, currentQty + delta);
+            document.getElementById('qtyValue').textContent = currentQty;
+            updateDetailTotal();
+        }
+
+        function toggleTopping(el, price) {
+            el.classList.toggle('selected');
+            const name = el.querySelector('.topping-name').textContent;
+            if (el.classList.contains('selected')) {
+                selectedToppings.push({ name, price });
+            } else {
+                selectedToppings = selectedToppings.filter(t => t.name !== name);
+            }
+            updateDetailTotal();
+        }
+
+        function updateDetailTotal() {
+            let total = currentProduct.price;
+            selectedToppings.forEach(t => total += t.price);
+            total *= currentQty;
+            document.getElementById('detailTotal').textContent = `S/ ${total.toFixed(2)}`;
+        }
+
+        function addToCart() {
+            cart.push({ 
+                ...currentProduct, 
+                qty: currentQty, 
+                toppings: [...selectedToppings],
+                unitTotal: selectedToppings.reduce((sum, t) => sum + t.price, 0) + currentProduct.price
+            });
+            updateCartCount();
+            closeScreen('detailScreen');
+            
+            const btn = document.querySelector('.cart-btn');
+            btn.style.transform = 'scale(1.2)';
+            setTimeout(() => btn.style.transform = 'scale(1)', 200);
+        }
+
+        function quickAdd(id) {
+            const product = products.find(p => p.id === id);
+            cart.push({ ...product, qty: 1, toppings: [], unitTotal: product.price });
+            updateCartCount();
+            
+            const btn = event.target;
+            btn.textContent = "✓";
+            btn.style.background = "var(--dorado)";
+            setTimeout(() => {
+                btn.textContent = "+";
+                btn.style.background = "var(--rosa-empolvado)";
+            }, 800);
+        }
+
+        // Cart Logic
+        function updateCartCount() {
+            const totalItems = cart.reduce((sum, item) => sum + item.qty, 0);
+            document.getElementById('cartCount').textContent = totalItems;
+        }
+
+        function renderCart() {
+            const list = document.getElementById('cartItemsList');
+            const form = document.getElementById('checkoutForm');
+            const empty = document.getElementById('emptyCart');
+
+            if (cart.length === 0) {
+                list.innerHTML = '';
+                form.classList.add('hidden');
+                empty.classList.remove('hidden');
+                return;
+            }
+
+            empty.classList.add('hidden');
+            form.classList.remove('hidden');
+
+            let subtotal = 0;
+            list.innerHTML = cart.map((item, index) => {
+                const itemTotal = item.unitTotal * item.qty;
+                subtotal += itemTotal;
+                const toppingsText = item.toppings.length > 0 ? item.toppings.map(t => t.name).join(', ') : 'Sin toppings';
+                
+                return `
+                    <div class="cart-item">
+                        <div class="cart-item-img">${item.emoji}</div>
+                        <div class="cart-item-info">
+                            <h4>${item.qty}x ${item.name}</h4>
+                            <p>${toppingsText}</p>
+                            <div class="cart-item-actions">
+                                <span style="font-weight: 700; color: var(--dorado-oscuro);">S/ ${itemTotal.toFixed(2)}</span>
+                                <button class="remove-btn" onclick="removeFromCart(${index})">Eliminar</button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+
+            document.getElementById('summarySubtotal').textContent = `S/ ${subtotal.toFixed(2)}`;
+            document.getElementById('summaryTotal').textContent = `S/ ${subtotal.toFixed(2)}`;
+        }
+
+        function removeFromCart(index) {
+            cart.splice(index, 1);
+            updateCartCount();
+            renderCart();
+        }
+
+        function selectPayment(el, method) {
+            document.querySelectorAll('.payment-option').forEach(p => p.classList.remove('selected'));
+            el.classList.add('selected');
+            selectedPayment = method;
+        }
+
+        // WhatsApp Confirmation
+        function confirmOrder() {
+            if (cart.length === 0) return;
+
+            const pickupPoint = document.getElementById('pickupPoint').value;
+            const pickupTime = document.getElementById('pickupTime').value;
+            const total = document.getElementById('summaryTotal').textContent;
+
+            let message = `¡Hola ChocoBloom Bakery! 🌸 Quiero confirmar mi pedido:%0A%0A`;
+            cart.forEach(item => {
+                message += `▪️ ${item.qty}x ${item.name} - S/ ${(item.unitTotal * item.qty).toFixed(2)}%0A`;
+                if (item.toppings.length > 0) {
+                    message += `   _(${item.toppings.map(t => t.name).join(', ')})_%0A`;
+                }
+            });
+            message += `%0A📍 *Punto de recojo:* ${pickupPoint}`;
+            message += `%0A *Hora:* ${pickupTime}`;
+            message += `%0A💳 *Pago:* ${selectedPayment}`;
+            message += `%0A💰 *Total:* ${total}%0A%0A¡Gracias!`;
+
+            const phoneNumber = "51919577406";
+            window.open(`https://wa.me/${phoneNumber}?text=${message}`, '_blank');
+
+            document.getElementById('orderNumber').textContent = Math.floor(1000 + Math.random() * 9000);
+            closeScreen('cartScreen');
+            openScreen('confirmationScreen');
+        }
+
+        // Rating Logic
+        function rateExperience(event) {
+            if (event.target.tagName === 'SPAN') {
+                const value = parseInt(event.target.getAttribute('data-value'));
+                const stars = document.querySelectorAll('.stars span');
+                stars.forEach((star, index) => {
+                    if (index < value) star.classList.add('active');
+                    else star.classList.remove('active');
+                });
+                
+                const texts = ["¡Oh no! Lo mejoraremos.", "Regular, podemos hacerlo mejor.", "¡Bien, pero podemos mejorar!", "¡Muy bueno! Gracias.", "¡Excelente! Nos encanta que te guste. 🌸"];
+                document.getElementById('ratingText').textContent = texts[value - 1];
+            }
+        }
+
+        function resetApp() {
+            cart = [];
+            updateCartCount();
+            closeScreen('confirmationScreen');
+            goHome();
+        }
+    </script>
+</body>
+</html>
