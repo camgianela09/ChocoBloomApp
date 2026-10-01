@@ -40,7 +40,6 @@
         h1, h2, h3 { font-family: 'Cormorant Garamond', serif; color: var(--chocolate); }
         .logo-svg { height: 40px; width: auto; }
 
-        /* App Header */
         .app-header {
             background: rgba(250, 247, 242, 0.95);
             backdrop-filter: blur(12px);
@@ -75,7 +74,6 @@
             font-weight: 700; border: 2px solid var(--crema);
         }
 
-        /* Views & Transitions */
         .screen {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: var(--crema); overflow-y: auto; padding-bottom: 100px;
@@ -86,7 +84,6 @@
         .screen.main-view { position: relative; transform: translateX(0); z-index: 10; height: auto; min-height: 100vh; padding-bottom: 100px; }
         .container { padding: 20px; max-width: 500px; margin: 0 auto; }
 
-        /* Hero & Promo */
         .hero {
             background: linear-gradient(135deg, var(--rosa-suave) 0%, var(--crema-oscuro) 100%);
             border-radius: var(--radius);
@@ -109,7 +106,6 @@
         .promo-text h4 { font-family: 'Poppins', sans-serif; font-size: 0.85rem; margin-bottom: 2px; }
         .promo-text p { font-size: 0.7rem; opacity: 0.9; }
 
-        /* Categories */
         .categories { display: flex; gap: 10px; overflow-x: auto; padding-bottom: 12px; margin-bottom: 20px; scrollbar-width: none; }
         .categories::-webkit-scrollbar { display: none; }
         .category-pill {
@@ -121,7 +117,6 @@
         .category-pill:active { transform: scale(0.95); }
         .category-pill.active { background: var(--chocolate); color: var(--white); border-color: var(--chocolate); }
 
-        /* Product Grid */
         .product-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
         .product-card {
             background: var(--white); border-radius: var(--radius);
@@ -130,8 +125,13 @@
         }
         .product-card:active { transform: scale(0.97); }
         .product-img {
-            width: 100%; height: 120px; background: linear-gradient(135deg, var(--crema-oscuro) 0%, var(--rosa-suave) 100%);
-            display: flex; align-items: center; justify-content: center; font-size: 3.5rem; position: relative;
+            width: 100%; height: 130px; background: linear-gradient(135deg, var(--crema-oscuro) 0%, var(--rosa-suave) 100%);
+            display: flex; align-items: center; justify-content: center; font-size: 4rem; position: relative;
+        }
+        .weight-tag {
+            position: absolute; top: 8px; right: 8px;
+            background: rgba(255,255,255,0.9); color: var(--chocolate);
+            font-size: 0.65rem; padding: 3px 8px; border-radius: 50px; font-weight: 600;
         }
         .scarcity-tag {
             position: absolute; top: 8px; left: 8px;
@@ -139,8 +139,8 @@
             font-size: 0.6rem; padding: 4px 8px; border-radius: 50px; font-weight: 600;
         }
         .product-info { padding: 12px; }
-        .product-name { font-weight: 600; color: var(--chocolate); font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; margin-bottom: 4px; }
-        .product-desc { font-size: 0.7rem; color: var(--texto-suave); margin-bottom: 10px; line-height: 1.2; height: 28px; overflow: hidden; }
+        .product-name { font-weight: 600; color: var(--chocolate); font-family: 'Cormorant Garamond', serif; font-size: 1.05rem; margin-bottom: 4px; line-height: 1.2; }
+        .product-desc { font-size: 0.68rem; color: var(--texto-suave); margin-bottom: 10px; line-height: 1.2; height: 28px; overflow: hidden; }
         .product-footer { display: flex; justify-content: space-between; align-items: center; }
         .product-price { color: var(--dorado-oscuro); font-weight: 700; font-size: 1rem; }
         .btn-add-mini {
@@ -151,7 +151,6 @@
         }
         .btn-add-mini:active { background: var(--dorado); transform: scale(0.9); }
 
-        /* Testimonials */
         .testimonials-section { margin-top: 30px; margin-bottom: 20px; }
         .section-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; }
         .section-header h3 { font-size: 1.3rem; font-weight: 600; }
@@ -164,14 +163,14 @@
         .test-content p { font-size: 0.8rem; color: var(--texto); font-style: italic; line-height: 1.4; margin-bottom: 4px; }
         .test-author { font-size: 0.7rem; color: var(--texto-suave); font-weight: 600; }
 
-        /* Detail Screen */
         .detail-header { padding: 12px 20px; display: flex; align-items: center; gap: 12px; background: var(--crema); position: sticky; top: 0; z-index: 10; }
         .back-btn { background: var(--white); border: none; width: 38px; height: 38px; border-radius: 50%; font-size: 1.1rem; cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: var(--shadow); color: var(--chocolate); transition: transform 0.2s; }
         .back-btn:active { transform: scale(0.9); }
-        .detail-img { width: 100%; height: 220px; background: linear-gradient(135deg, var(--crema-oscuro) 0%, var(--rosa-suave) 100%); display: flex; align-items: center; justify-content: center; font-size: 7rem; }
+        .detail-img { width: 100%; height: 240px; background: linear-gradient(135deg, var(--crema-oscuro) 0%, var(--rosa-suave) 100%); display: flex; align-items: center; justify-content: center; font-size: 8rem; }
         .detail-content { padding: 24px 20px 120px 20px; background: var(--white); border-radius: 24px 24px 0 0; margin-top: -24px; position: relative; flex: 1; }
         .detail-title { font-size: 1.6rem; margin-bottom: 6px; font-weight: 600; }
-        .detail-price { color: var(--dorado-oscuro); font-weight: 700; font-size: 1.3rem; margin-bottom: 16px; font-family: 'Cormorant Garamond', serif; }
+        .detail-weight { display: inline-block; background: var(--crema-oscuro); color: var(--chocolate); padding: 4px 12px; border-radius: 50px; font-size: 0.75rem; font-weight: 600; margin-bottom: 12px; }
+        .detail-price { color: var(--dorado-oscuro); font-weight: 700; font-size: 1.4rem; margin-bottom: 16px; font-family: 'Cormorant Garamond', serif; }
         
         .topping-option { 
             display: flex; align-items: center; justify-content: space-between;
@@ -198,7 +197,6 @@
         .total-price { font-size: 1.2rem; font-weight: 700; color: var(--chocolate); font-family: 'Cormorant Garamond', serif; }
         .total-label { font-size: 0.7rem; color: var(--texto-suave); font-weight: 500; text-transform: uppercase; letter-spacing: 0.5px; }
 
-        /* Cart Screen */
         .cart-item { display: flex; gap: 12px; background: var(--white); padding: 14px; border-radius: 16px; margin-bottom: 10px; box-shadow: var(--shadow); }
         .cart-item-img { width: 55px; height: 55px; background: linear-gradient(135deg, var(--crema-oscuro) 0%, var(--rosa-suave) 100%); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.8rem; flex-shrink: 0; }
         .cart-item-info { flex: 1; }
@@ -239,10 +237,8 @@
 
         .summary-box { background: var(--white); padding: 16px; border-radius: 16px; margin-top: 10px; box-shadow: var(--shadow); }
         .summary-row { display: flex; justify-content: space-between; margin-bottom: 10px; font-size: 0.85rem; color: var(--texto-suave); }
-        .summary-discount { color: #25D366; font-weight: 600; }
         .summary-total { font-size: 1.2rem; font-weight: 700; color: var(--chocolate); border-top: 1px dashed var(--rosa-claro); padding-top: 12px; margin-top: 12px; font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; }
 
-        /* Confirmation Screen & Tracker */
         .confirmation-content { text-align: center; padding: 30px 24px; display: flex; flex-direction: column; align-items: center; min-height: 80vh; }
         .success-icon { font-size: 4rem; margin-bottom: 12px; animation: pop 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
         @keyframes pop { 0% { transform: scale(0); } 100% { transform: scale(1); } }
@@ -265,7 +261,6 @@
         .stars { font-size: 2.2rem; color: var(--rosa-claro); margin: 16px 0; cursor: pointer; letter-spacing: 6px; }
         .stars .active { color: var(--dorado); }
 
-        /* Modal Registro */
         .modal-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(74, 55, 40, 0.6); backdrop-filter: blur(4px);
@@ -282,7 +277,6 @@
         .modal-content h3 { font-size: 1.4rem; margin-bottom: 8px; text-align: center; }
         .modal-content p { font-size: 0.85rem; color: var(--texto-suave); text-align: center; margin-bottom: 20px; }
 
-        /* Bottom Nav */
         .bottom-nav {
             position: fixed; bottom: 0; left: 0; right: 0;
             background: rgba(255, 255, 255, 0.95);
@@ -302,7 +296,6 @@
         .nav-item.active { color: var(--dorado-oscuro); }
         .nav-icon { font-size: 1.4rem; margin-bottom: 2px; }
 
-        /* Utilities */
         .hidden { display: none !important; }
         .btn-primary {
             background: var(--chocolate); color: var(--white); border: none;
@@ -322,7 +315,6 @@
 </head>
 <body>
 
-    <!-- MAIN VIEW (HOME) -->
     <div class="screen main-view" id="homeScreen">
         <header class="app-header">
             <svg class="logo-svg" viewBox="0 0 280 50" xmlns="http://www.w3.org/2000/svg">
@@ -339,7 +331,7 @@
             <div class="header-actions">
                 <div class="points-badge">⭐ <span id="headerPoints">50</span></div>
                 <button class="cart-btn" onclick="openScreen('cartScreen')">
-                    🛒<span class="cart-badge" id="cartCount">0</span>
+                    <span class="cart-badge" id="cartCount">0</span>
                 </button>
             </div>
         </header>
@@ -347,43 +339,41 @@
         <div class="container">
             <div class="hero">
                 <h2>Break Universitario </h2>
-                <p>Pide en 1 minuto y recoge en tu descanso. ¡Gana puntos con cada pedido!</p>
+                <p>Galletas artesanales de 85g y tortas caseras. ¡Pide y recoge en tu descanso!</p>
             </div>
 
-            <!-- NUEVO: Banner de Promo -->
             <div class="promo-banner">
                 <div class="promo-icon">🔥</div>
                 <div class="promo-text">
-                    <h4>Promo: Semana de Parciales</h4>
-                    <p>2 Galletas Gigantes + Café por S/ 10.00</p>
+                    <h4>Semana de Parciales</h4>
+                    <p>2 Galletas + Café por S/ 10.00</p>
                 </div>
             </div>
 
             <div class="categories">
                 <div class="category-pill active" onclick="filterProducts('Todos', this)">Todos</div>
-                <div class="category-pill" onclick="filterProducts('Tortas', this)">Tortas</div>
-                <div class="category-pill" onclick="filterProducts('Galletas', this)">Galletas</div>
+                <div class="category-pill" onclick="filterProducts('Galletas', this)"> Galletas</div>
+                <div class="category-pill" onclick="filterProducts('Tortas', this)">🎂 Tortas</div>
             </div>
 
             <div class="product-grid" id="catalog"></div>
 
-            <!-- NUEVO: Testimonios -->
             <div class="testimonials-section">
                 <div class="section-header">
-                    <h3>Lo que dicen en TikTok </h3>
-                    <a href="#" class="tiktok-link">@chocobloom.pe</a>
+                    <h3>Lo que dicen en TikTok 💬</h3>
+                    <a href="#" class="tiktok-link">@chocobloom_pe</a>
                 </div>
                 <div class="testimonial-card">
-                    <div class="test-avatar">👩🏻‍🎓</div>
+                    <div class="test-avatar">🏻‍🎓</div>
                     <div class="test-content">
-                        <p>"¡La torta de chocolate me salvó la vida en parciales! Llegó justo a mi descanso."</p>
+                        <p>"La S'more es ADICTIVA. El malvavisco derretido con el chocolate... 😍"</p>
                         <div class="test-author">Valeria M. · ⭐⭐⭐⭐⭐</div>
                     </div>
                 </div>
                 <div class="testimonial-card">
                     <div class="test-avatar">👨‍💻</div>
                     <div class="test-content">
-                        <p>"Me encanta que pueda ver el precio y pedir por WhatsApp sin esperar respuesta."</p>
+                        <p>"Pedí la Red Velvet y llegó calentita al Pabellón C. 10/10"</p>
                         <div class="test-author">Carlos R. · ⭐⭐⭐⭐⭐</div>
                     </div>
                 </div>
@@ -391,21 +381,21 @@
         </div>
     </div>
 
-    <!-- DETAIL SCREEN -->
     <div class="screen" id="detailScreen">
         <div class="detail-header">
             <button class="back-btn" onclick="closeScreen('detailScreen')">←</button>
             <span style="font-weight: 600; font-size: 0.95rem; color: var(--chocolate); font-family: 'Cormorant Garamond', serif;">Detalle</span>
         </div>
-        <div class="detail-img" id="detailImg">🍫</div>
+        <div class="detail-img" id="detailImg">🍪</div>
         <div class="detail-content">
             <h2 class="detail-title" id="detailName">Nombre</h2>
+            <div class="detail-weight" id="detailWeight">85g</div>
             <p style="color: var(--texto-suave); line-height: 1.5; margin-bottom: 12px; font-size: 0.85rem;" id="detailDesc">Descripción.</p>
             <div class="detail-price" id="detailPrice">S/ 0.00</div>
 
-            <h3 style="font-family: 'Poppins', sans-serif; font-size: 0.95rem; font-weight: 600; margin-bottom: 10px; color: var(--chocolate);">✨ Toppings (Opcional)</h3>
+            <h3 style="font-family: 'Poppins', sans-serif; font-size: 0.9rem; font-weight: 600; margin-bottom: 10px; color: var(--chocolate);">✨ Toppings (Opcional)</h3>
             <div class="topping-option" onclick="toggleTopping(this, 1.00)">
-                <span class="topping-name"> Fresas frescas</span>
+                <span class="topping-name">🍓 Fresas frescas</span>
                 <span class="topping-price">+S/ 1.00</span>
             </div>
             <div class="topping-option" onclick="toggleTopping(this, 1.50)">
@@ -413,7 +403,7 @@
                 <span class="topping-price">+S/ 1.50</span>
             </div>
             <div class="topping-option" onclick="toggleTopping(this, 2.00)">
-                <span class="topping-name">🍦 Helado de vainilla</span>
+                <span class="topping-name"> Helado de vainilla</span>
                 <span class="topping-price">+S/ 2.00</span>
             </div>
 
@@ -433,7 +423,6 @@
         </div>
     </div>
 
-    <!-- CART SCREEN -->
     <div class="screen" id="cartScreen">
         <div class="detail-header">
             <button class="back-btn" onclick="closeScreen('cartScreen')">←</button>
@@ -443,7 +432,7 @@
             <div id="cartItemsList"></div>
 
             <div id="checkoutForm" class="hidden">
-                <div class="points-card" id="pointsCard">
+                <div class="points-card">
                     <h4>⭐ Tienes <span id="userPoints">50</span> puntos</h4>
                     <p>Canjéalos por un descuento de S/ 2.00 en este pedido.</p>
                     <button class="btn-discount" id="btnApplyDiscount" onclick="applyDiscount()">Aplicar descuento</button>
@@ -478,7 +467,7 @@
 
                 <div class="summary-box">
                     <div class="summary-row"><span>Subtotal</span><span id="summarySubtotal">S/ 0.00</span></div>
-                    <div class="summary-row hidden" id="discountRow"><span>Descuento (Puntos)</span><span class="summary-discount">- S/ 2.00</span></div>
+                    <div class="summary-row hidden" id="discountRow"><span>Descuento (Puntos)</span><span style="color: #25D366; font-weight: 600;">- S/ 2.00</span></div>
                     <div class="summary-row summary-total"><span>Total a pagar</span><span id="summaryTotal">S/ 0.00</span></div>
                 </div>
 
@@ -489,15 +478,14 @@
             </div>
             
             <div id="emptyCart" class="hidden" style="text-align: center; padding: 50px 20px; color: var(--texto-suave);">
-                <div style="font-size: 3.5rem; margin-bottom: 12px;">🛒</div>
+                <div style="font-size: 3.5rem; margin-bottom: 12px;"></div>
                 <p style="font-weight: 600; font-size: 1rem; margin-bottom: 6px; color: var(--chocolate); font-family: 'Cormorant Garamond', serif;">Tu carrito está vacío</p>
-                <p style="font-size: 0.8rem; margin-bottom: 20px;">¡Agrega un postre para tu break!</p>
+                <p style="font-size: 0.8rem; margin-bottom: 20px;">¡Agrega una galleta para tu break!</p>
                 <button class="btn-primary" style="width: auto; padding: 12px 28px;" onclick="closeScreen('cartScreen')">Ver catálogo</button>
             </div>
         </div>
     </div>
 
-    <!-- CONFIRMATION SCREEN -->
     <div class="screen" id="confirmationScreen">
         <div class="confirmation-content">
             <div class="success-icon">🎉</div>
@@ -505,14 +493,13 @@
             <p style="color: var(--texto-suave); margin-bottom: 4px; font-size: 0.9rem;">Tu pedido <strong style="color: var(--dorado-oscuro);">#CB-<span id="orderNumber"></span></strong></p>
             <p style="color: var(--texto-suave); font-size: 0.8rem; margin-bottom: 16px;">¡Ganaste <strong id="pointsEarned">0</strong> puntos!</p>
             
-            <!-- NUEVO: Rastreador de Estado -->
             <div class="status-tracker">
                 <div class="status-step done">
                     <div class="status-dot">✓</div>
                     <span class="status-label">Recibido</span>
                 </div>
                 <div class="status-step active">
-                    <div class="status-dot"></div>
+                    <div class="status-dot">🔥</div>
                     <span class="status-label">Horneando</span>
                 </div>
                 <div class="status-step">
@@ -532,7 +519,6 @@
         </div>
     </div>
 
-    <!-- MODAL REGISTRO RÁPIDO -->
     <div class="modal-overlay" id="registerModal">
         <div class="modal-content">
             <h3>¡Hola! 👋</h3>
@@ -549,13 +535,12 @@
         </div>
     </div>
 
-    <!-- BOTTOM NAVIGATION -->
     <nav class="bottom-nav">
         <div class="nav-item active" onclick="goHome()" id="nav-home">
-            <span class="nav-icon">🏠</span><span>Inicio</span>
+            <span class="nav-icon"></span><span>Inicio</span>
         </div>
         <div class="nav-item" onclick="openScreen('cartScreen')" id="nav-cart">
-            <span class="nav-icon">📋</span><span>Pedidos</span>
+            <span class="nav-icon"></span><span>Pedidos</span>
         </div>
         <div class="nav-item" onclick="alert('Función de perfil en desarrollo para el MVP')" id="nav-profile">
             <span class="nav-icon">👤</span><span>Perfil</span>
@@ -563,12 +548,15 @@
     </nav>
 
     <script>
+        // MENÚ REAL DE CHOCOBLOOM
         const products = [
-            { id: 1, name: "Cheesecake Maracuyá", price: 8.00, emoji: "🍰", desc: "Cremoso y refrescante, ideal para el calor.", category: "Tortas", stock: 5 },
-            { id: 2, name: "Torta de Chocolate", price: 10.00, emoji: "🎂", desc: "Húmeda, con fudge casero y chispas.", category: "Tortas", stock: 3 },
-            { id: 3, name: "Galleta Classic", price: 5.00, emoji: "🍪", desc: "La clásica con chispas de chocolate.", category: "Galletas", stock: 12 },
-            { id: 4, name: "Galleta Double Choco", price: 6.00, emoji: "🍫", desc: "Masa de chocolate con chispas de chocolate.", category: "Galletas", stock: 8 },
-            { id: 5, name: "Galleta Cookies & Cream", price: 6.00, emoji: "🥛", desc: "Con trozos de galleta Oreo y crema.", category: "Galletas", stock: 2 }
+            { id: 1, name: "Cookies and Cream", price: 6.00, emoji: "", desc: "Masa con chispas de chocolate y trozos de Oreo.", category: "Galletas", stock: 8, weight: "85g" },
+            { id: 2, name: "Double Chocolate", price: 6.00, emoji: "🍫", desc: "Masa de chocolate con chispas y drizzle de chocolate.", category: "Galletas", stock: 5, weight: "85g" },
+            { id: 3, name: "Classic OG", price: 5.50, emoji: "🍪", desc: "La clásica con chispas de chocolate y drizzle.", category: "Galletas", stock: 10, weight: "85g" },
+            { id: 4, name: "Red Velvet", price: 6.50, emoji: "🔴", desc: "Masa red velvet con chispas blancas y drizzle.", category: "Galletas", stock: 4, weight: "85g" },
+            { id: 5, name: "S'more", price: 7.00, emoji: "", desc: "Con malvavisco derretido, chocolate y graham.", category: "Galletas", stock: 3, weight: "85g" },
+            { id: 6, name: "Cheesecake Maracuyá", price: 8.00, emoji: "🍰", desc: "Cremoso y refrescante, ideal para el calor de Ica.", category: "Tortas", stock: 6, weight: "Porción" },
+            { id: 7, name: "Torta de Chocolate", price: 10.00, emoji: "🎂", desc: "Húmeda, con fudge casero y chispas de chocolate.", category: "Tortas", stock: 4, weight: "Porción" }
         ];
 
         let cart = [];
@@ -589,7 +577,8 @@
             grid.innerHTML = filtered.map(p => `
                 <div class="product-card" onclick="openDetail(${p.id})">
                     <div class="product-img">
-                        ${p.stock <= 3 ? `<div class="scarcity-tag">¡Solo quedan ${p.stock}!</div>` : ''}
+                        ${p.stock <= 4 ? `<div class="scarcity-tag">¡Quedan ${p.stock}!</div>` : ''}
+                        <div class="weight-tag">${p.weight}</div>
                         ${p.emoji}
                     </div>
                     <div class="product-info">
@@ -635,6 +624,7 @@
             
             document.getElementById('detailImg').textContent = currentProduct.emoji;
             document.getElementById('detailName').textContent = currentProduct.name;
+            document.getElementById('detailWeight').textContent = currentProduct.weight;
             document.getElementById('detailDesc').textContent = currentProduct.desc;
             document.getElementById('detailPrice').textContent = `S/ ${currentProduct.price.toFixed(2)}`;
             document.getElementById('qtyValue').textContent = currentQty;
@@ -676,7 +666,6 @@
             updateCartCount();
             closeScreen('detailScreen');
             
-            // Vibración háptica (Android) y animación
             if (navigator.vibrate) navigator.vibrate(50);
             const btn = document.querySelector('.cart-btn');
             btn.style.transform = 'scale(1.2)';
@@ -804,14 +793,14 @@
             const pickupTime = document.getElementById('pickupTime').value;
             const total = document.getElementById('summaryTotal').textContent;
 
-            let message = `¡Hola ChocoBloom Bakery! 🌸 Soy *${userData.name}* (${userData.phone}).%0AQuiero confirmar mi pedido:%0A%0A`;
+            let message = `¡Hola ChocoBloom Bakery!  Soy *${userData.name}* (${userData.phone}).%0AQuiero confirmar mi pedido:%0A%0A`;
             cart.forEach(item => {
-                message += `▪️ ${item.qty}x ${item.name} - S/ ${(item.unitTotal * item.qty).toFixed(2)}%0A`;
+                message += `▪️ ${item.qty}x ${item.name} (${item.weight}) - S/ ${(item.unitTotal * item.qty).toFixed(2)}%0A`;
                 if (item.toppings.length > 0) {
                     message += `   _(${item.toppings.map(t => t.name).join(', ')})_%0A`;
                 }
             });
-            message += `%0A *Punto de recojo:* ${pickupPoint}`;
+            message += `%0A📍 *Punto de recojo:* ${pickupPoint}`;
             message += `%0A⏰ *Hora:* ${pickupTime}`;
             message += `%0A💳 *Pago:* ${selectedPayment}`;
             if (discountApplied) message += `%0A🎟️ *Descuento:* Aplicado (50 pts)`;
