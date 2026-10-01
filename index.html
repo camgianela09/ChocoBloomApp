@@ -38,8 +38,6 @@
         }
 
         h1, h2, h3 { font-family: 'Cormorant Garamond', serif; color: var(--chocolate); }
-
-        /* Logo SVG */
         .logo-svg { height: 40px; width: auto; }
 
         /* App Header */
@@ -86,10 +84,9 @@
         }
         .screen.active { transform: translateX(0); z-index: 60; }
         .screen.main-view { position: relative; transform: translateX(0); z-index: 10; height: auto; min-height: 100vh; padding-bottom: 100px; }
-
         .container { padding: 20px; max-width: 500px; margin: 0 auto; }
 
-        /* Hero */
+        /* Hero & Promo */
         .hero {
             background: linear-gradient(135deg, var(--rosa-suave) 0%, var(--crema-oscuro) 100%);
             border-radius: var(--radius);
@@ -99,17 +96,18 @@
             position: relative;
             overflow: hidden;
         }
-        .hero::before {
-            content: '🍪';
-            position: absolute;
-            top: -20px;
-            right: -10px;
-            font-size: 6rem;
-            opacity: 0.15;
-            transform: rotate(15deg);
-        }
+        .hero::before { content: '🍪'; position: absolute; top: -20px; right: -10px; font-size: 6rem; opacity: 0.15; transform: rotate(15deg); }
         .hero h2 { font-size: 1.7rem; margin-bottom: 6px; font-weight: 600; }
         .hero p { color: var(--texto-suave); font-size: 0.85rem; margin-bottom: 14px; line-height: 1.4; }
+        
+        .promo-banner {
+            background: linear-gradient(90deg, var(--chocolate) 0%, var(--chocolate-claro) 100%);
+            color: white; padding: 12px 16px; border-radius: 14px; margin-bottom: 20px;
+            display: flex; align-items: center; gap: 12px; box-shadow: var(--shadow);
+        }
+        .promo-icon { font-size: 1.8rem; }
+        .promo-text h4 { font-family: 'Poppins', sans-serif; font-size: 0.85rem; margin-bottom: 2px; }
+        .promo-text p { font-size: 0.7rem; opacity: 0.9; }
 
         /* Categories */
         .categories { display: flex; gap: 10px; overflow-x: auto; padding-bottom: 12px; margin-bottom: 20px; scrollbar-width: none; }
@@ -121,9 +119,7 @@
             transition: all 0.2s; font-family: 'Poppins', sans-serif;
         }
         .category-pill:active { transform: scale(0.95); }
-        .category-pill.active { 
-            background: var(--chocolate); color: var(--white); border-color: var(--chocolate); 
-        }
+        .category-pill.active { background: var(--chocolate); color: var(--white); border-color: var(--chocolate); }
 
         /* Product Grid */
         .product-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
@@ -135,7 +131,12 @@
         .product-card:active { transform: scale(0.97); }
         .product-img {
             width: 100%; height: 120px; background: linear-gradient(135deg, var(--crema-oscuro) 0%, var(--rosa-suave) 100%);
-            display: flex; align-items: center; justify-content: center; font-size: 3.5rem;
+            display: flex; align-items: center; justify-content: center; font-size: 3.5rem; position: relative;
+        }
+        .scarcity-tag {
+            position: absolute; top: 8px; left: 8px;
+            background: var(--rosa-empolvado); color: white;
+            font-size: 0.6rem; padding: 4px 8px; border-radius: 50px; font-weight: 600;
         }
         .product-info { padding: 12px; }
         .product-name { font-weight: 600; color: var(--chocolate); font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; margin-bottom: 4px; }
@@ -149,6 +150,19 @@
             transition: all 0.2s;
         }
         .btn-add-mini:active { background: var(--dorado); transform: scale(0.9); }
+
+        /* Testimonials */
+        .testimonials-section { margin-top: 30px; margin-bottom: 20px; }
+        .section-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; }
+        .section-header h3 { font-size: 1.3rem; font-weight: 600; }
+        .tiktok-link { color: var(--rosa-empolvado); font-size: 0.8rem; font-weight: 600; text-decoration: none; }
+        .testimonial-card {
+            background: var(--white); padding: 16px; border-radius: 16px; box-shadow: var(--shadow);
+            margin-bottom: 12px; display: flex; gap: 12px; align-items: flex-start;
+        }
+        .test-avatar { width: 40px; height: 40px; background: var(--rosa-suave); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; flex-shrink: 0; }
+        .test-content p { font-size: 0.8rem; color: var(--texto); font-style: italic; line-height: 1.4; margin-bottom: 4px; }
+        .test-author { font-size: 0.7rem; color: var(--texto-suave); font-weight: 600; }
 
         /* Detail Screen */
         .detail-header { padding: 12px 20px; display: flex; align-items: center; gap: 12px; background: var(--crema); position: sticky; top: 0; z-index: 10; }
@@ -185,10 +199,7 @@
         .total-label { font-size: 0.7rem; color: var(--texto-suave); font-weight: 500; text-transform: uppercase; letter-spacing: 0.5px; }
 
         /* Cart Screen */
-        .cart-item { 
-            display: flex; gap: 12px; background: var(--white); padding: 14px; 
-            border-radius: 16px; margin-bottom: 10px; box-shadow: var(--shadow); 
-        }
+        .cart-item { display: flex; gap: 12px; background: var(--white); padding: 14px; border-radius: 16px; margin-bottom: 10px; box-shadow: var(--shadow); }
         .cart-item-img { width: 55px; height: 55px; background: linear-gradient(135deg, var(--crema-oscuro) 0%, var(--rosa-suave) 100%); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.8rem; flex-shrink: 0; }
         .cart-item-info { flex: 1; }
         .cart-item-info h4 { font-family: 'Cormorant Garamond', serif; font-weight: 600; font-size: 1.1rem; margin-bottom: 2px; }
@@ -203,7 +214,6 @@
             font-family: 'Poppins', sans-serif; font-size: 0.85rem; background: var(--white);
             appearance: none; color: var(--texto);
         }
-        .form-control:focus { outline: none; border-color: var(--dorado); }
         .payment-options { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; }
         .payment-option {
             padding: 12px; border: 2px solid var(--rosa-claro); border-radius: 14px;
@@ -213,7 +223,6 @@
         .payment-option:active { transform: scale(0.95); }
         .payment-option.selected { border-color: var(--dorado); background: var(--crema-oscuro); color: var(--dorado-oscuro); }
 
-        /* Points & Discount */
         .points-card {
             background: linear-gradient(135deg, var(--dorado) 0%, var(--dorado-oscuro) 100%);
             color: white; padding: 16px; border-radius: 16px; margin-bottom: 16px;
@@ -233,11 +242,27 @@
         .summary-discount { color: #25D366; font-weight: 600; }
         .summary-total { font-size: 1.2rem; font-weight: 700; color: var(--chocolate); border-top: 1px dashed var(--rosa-claro); padding-top: 12px; margin-top: 12px; font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; }
 
-        /* Confirmation Screen */
-        .confirmation-content { text-align: center; padding: 40px 24px; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 80vh; }
-        .success-icon { font-size: 4.5rem; margin-bottom: 16px; animation: pop 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+        /* Confirmation Screen & Tracker */
+        .confirmation-content { text-align: center; padding: 30px 24px; display: flex; flex-direction: column; align-items: center; min-height: 80vh; }
+        .success-icon { font-size: 4rem; margin-bottom: 12px; animation: pop 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
         @keyframes pop { 0% { transform: scale(0); } 100% { transform: scale(1); } }
-        .stars { font-size: 2.2rem; color: var(--rosa-claro); margin: 20px 0; cursor: pointer; letter-spacing: 6px; }
+        
+        .status-tracker {
+            display: flex; justify-content: space-between; align-items: center;
+            width: 100%; max-width: 300px; margin: 20px 0; position: relative;
+        }
+        .status-tracker::before {
+            content: ''; position: absolute; top: 12px; left: 20px; right: 20px; height: 2px;
+            background: var(--rosa-claro); z-index: 0;
+        }
+        .status-step { display: flex; flex-direction: column; align-items: center; z-index: 1; width: 33%; }
+        .status-dot { width: 26px; height: 26px; border-radius: 50%; background: var(--rosa-claro); display: flex; align-items: center; justify-content: center; font-size: 0.8rem; color: white; margin-bottom: 6px; transition: all 0.3s; }
+        .status-step.active .status-dot { background: var(--dorado); transform: scale(1.1); }
+        .status-step.done .status-dot { background: var(--chocolate); }
+        .status-label { font-size: 0.65rem; color: var(--texto-suave); font-weight: 500; }
+        .status-step.active .status-label { color: var(--dorado-oscuro); font-weight: 700; }
+
+        .stars { font-size: 2.2rem; color: var(--rosa-claro); margin: 16px 0; cursor: pointer; letter-spacing: 6px; }
         .stars .active { color: var(--dorado); }
 
         /* Modal Registro */
@@ -250,7 +275,7 @@
         .modal-overlay.active { opacity: 1; pointer-events: auto; }
         .modal-content {
             background: var(--white); padding: 28px 24px; border-radius: 24px;
-            width: 90%; max-width: 360px; box-shadow: var(--shadow-fuerte);
+            width: 90%; max-width: 360px; box-shadow: var(--shadow);
             transform: translateY(20px); transition: transform 0.3s;
         }
         .modal-overlay.active .modal-content { transform: translateY(0); }
@@ -304,28 +329,34 @@
                 <text x="0" y="32" font-family="Cormorant Garamond, serif" font-size="30" font-weight="600" fill="#D4A5A5" letter-spacing="1">CH</text>
                 <g transform="translate(52, 10)">
                     <circle cx="12" cy="12" r="11" fill="#D4A5A5"/>
-                    <circle cx="8" cy="9" r="2" fill="#FAF7F2"/>
-                    <circle cx="15" cy="8" r="1.5" fill="#FAF7F2"/>
-                    <circle cx="10" cy="15" r="1.8" fill="#FAF7F2"/>
-                    <circle cx="16" cy="14" r="1.3" fill="#FAF7F2"/>
+                    <circle cx="8" cy="9" r="2" fill="#FAF7F2"/><circle cx="15" cy="8" r="1.5" fill="#FAF7F2"/>
+                    <circle cx="10" cy="15" r="1.8" fill="#FAF7F2"/><circle cx="16" cy="14" r="1.3" fill="#FAF7F2"/>
                     <circle cx="12" cy="11" r="1.5" fill="#FAF7F2"/>
                 </g>
                 <text x="78" y="32" font-family="Cormorant Garamond, serif" font-size="30" font-weight="600" fill="#D4A5A5" letter-spacing="1">COBLOOM</text>
                 <text x="95" y="48" font-family="Playfair Display, serif" font-style="italic" font-size="22" fill="#C9A96E">bakery</text>
             </svg>
             <div class="header-actions">
-                <div class="points-badge">⭐ <span id="headerPoints">50</span> pts</div>
+                <div class="points-badge">⭐ <span id="headerPoints">50</span></div>
                 <button class="cart-btn" onclick="openScreen('cartScreen')">
-                    🛒
-                    <span class="cart-badge" id="cartCount">0</span>
+                    🛒<span class="cart-badge" id="cartCount">0</span>
                 </button>
             </div>
         </header>
 
         <div class="container">
             <div class="hero">
-                <h2>Break Universitario 🎓</h2>
+                <h2>Break Universitario </h2>
                 <p>Pide en 1 minuto y recoge en tu descanso. ¡Gana puntos con cada pedido!</p>
+            </div>
+
+            <!-- NUEVO: Banner de Promo -->
+            <div class="promo-banner">
+                <div class="promo-icon">🔥</div>
+                <div class="promo-text">
+                    <h4>Promo: Semana de Parciales</h4>
+                    <p>2 Galletas Gigantes + Café por S/ 10.00</p>
+                </div>
             </div>
 
             <div class="categories">
@@ -335,6 +366,28 @@
             </div>
 
             <div class="product-grid" id="catalog"></div>
+
+            <!-- NUEVO: Testimonios -->
+            <div class="testimonials-section">
+                <div class="section-header">
+                    <h3>Lo que dicen en TikTok </h3>
+                    <a href="#" class="tiktok-link">@chocobloom.pe</a>
+                </div>
+                <div class="testimonial-card">
+                    <div class="test-avatar">👩🏻‍🎓</div>
+                    <div class="test-content">
+                        <p>"¡La torta de chocolate me salvó la vida en parciales! Llegó justo a mi descanso."</p>
+                        <div class="test-author">Valeria M. · ⭐⭐⭐⭐⭐</div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="test-avatar">👨‍💻</div>
+                    <div class="test-content">
+                        <p>"Me encanta que pueda ver el precio y pedir por WhatsApp sin esperar respuesta."</p>
+                        <div class="test-author">Carlos R. · ⭐⭐⭐⭐⭐</div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -352,7 +405,7 @@
 
             <h3 style="font-family: 'Poppins', sans-serif; font-size: 0.95rem; font-weight: 600; margin-bottom: 10px; color: var(--chocolate);">✨ Toppings (Opcional)</h3>
             <div class="topping-option" onclick="toggleTopping(this, 1.00)">
-                <span class="topping-name">🍓 Fresas frescas</span>
+                <span class="topping-name"> Fresas frescas</span>
                 <span class="topping-price">+S/ 1.00</span>
             </div>
             <div class="topping-option" onclick="toggleTopping(this, 1.50)">
@@ -390,7 +443,6 @@
             <div id="cartItemsList"></div>
 
             <div id="checkoutForm" class="hidden">
-                <!-- Puntos y Descuento -->
                 <div class="points-card" id="pointsCard">
                     <h4>⭐ Tienes <span id="userPoints">50</span> puntos</h4>
                     <p>Canjéalos por un descuento de S/ 2.00 en este pedido.</p>
@@ -398,21 +450,16 @@
                 </div>
 
                 <div class="form-group">
-                    <label>📍 Punto de recojo</label>
+                    <label> Punto de recojo</label>
                     <select class="form-control" id="pickupPoint">
-                        <option>Pabellón A</option>
-                        <option>Pabellón B</option>
-                        <option>Pabellón C</option>
-                        <option>Pabellón D</option>
-                        <option>Pabellón E</option>
-                        <option>Pabellón F</option>
-                        <option>Auditorio</option>
-                        <option>Biblioteca</option>
+                        <option>Pabellón A</option><option>Pabellón B</option><option>Pabellón C</option>
+                        <option>Pabellón D</option><option>Pabellón E</option><option>Pabellón F</option>
+                        <option>Auditorio</option><option>Biblioteca</option>
                     </select>
                 </div>
 
                 <div class="form-group">
-                    <label> Hora de recojo</label>
+                    <label>⏰ Hora de recojo</label>
                     <select class="form-control" id="pickupTime">
                         <option>10:00 AM - 10:30 AM (Refrigerio)</option>
                         <option>1:00 PM - 1:30 PM (Almuerzo)</option>
@@ -454,10 +501,27 @@
     <div class="screen" id="confirmationScreen">
         <div class="confirmation-content">
             <div class="success-icon">🎉</div>
-            <h2 style="font-size: 1.8rem; margin-bottom: 10px; font-weight: 600;">¡Pedido confirmado!</h2>
-            <p style="color: var(--texto-suave); margin-bottom: 6px; font-size: 0.9rem;">Tu pedido <strong style="color: var(--dorado-oscuro);">#CB-<span id="orderNumber"></span></strong></p>
-            <p style="color: var(--texto-suave); font-size: 0.85rem; margin-bottom: 24px; line-height: 1.5;">Está siendo preparado. ¡Ganaste <strong id="pointsEarned">0</strong> puntos!</p>
+            <h2 style="font-size: 1.8rem; margin-bottom: 8px; font-weight: 600;">¡Pedido confirmado!</h2>
+            <p style="color: var(--texto-suave); margin-bottom: 4px; font-size: 0.9rem;">Tu pedido <strong style="color: var(--dorado-oscuro);">#CB-<span id="orderNumber"></span></strong></p>
+            <p style="color: var(--texto-suave); font-size: 0.8rem; margin-bottom: 16px;">¡Ganaste <strong id="pointsEarned">0</strong> puntos!</p>
             
+            <!-- NUEVO: Rastreador de Estado -->
+            <div class="status-tracker">
+                <div class="status-step done">
+                    <div class="status-dot">✓</div>
+                    <span class="status-label">Recibido</span>
+                </div>
+                <div class="status-step active">
+                    <div class="status-dot"></div>
+                    <span class="status-label">Horneando</span>
+                </div>
+                <div class="status-step">
+                    <div class="status-dot">📍</div>
+                    <span class="status-label">Listo</span>
+                </div>
+            </div>
+            <p style="font-size: 0.75rem; color: var(--texto-suave); margin-bottom: 20px;">Te avisaremos por WhatsApp cuando esté listo.</p>
+
             <h3 style="font-size: 0.95rem; margin-bottom: 10px; font-family: 'Poppins', sans-serif; font-weight: 600; color: var(--chocolate);">¿Cómo calificarías tu experiencia?</h3>
             <div class="stars" onclick="rateExperience(event)">
                 <span data-value="1">★</span><span data-value="2">★</span><span data-value="3">★</span><span data-value="4">★</span><span data-value="5">★</span>
@@ -488,27 +552,23 @@
     <!-- BOTTOM NAVIGATION -->
     <nav class="bottom-nav">
         <div class="nav-item active" onclick="goHome()" id="nav-home">
-            <span class="nav-icon">🏠</span>
-            <span>Inicio</span>
+            <span class="nav-icon">🏠</span><span>Inicio</span>
         </div>
         <div class="nav-item" onclick="openScreen('cartScreen')" id="nav-cart">
-            <span class="nav-icon">📋</span>
-            <span>Pedidos</span>
+            <span class="nav-icon">📋</span><span>Pedidos</span>
         </div>
         <div class="nav-item" onclick="alert('Función de perfil en desarrollo para el MVP')" id="nav-profile">
-            <span class="nav-icon">👤</span>
-            <span>Perfil</span>
+            <span class="nav-icon">👤</span><span>Perfil</span>
         </div>
     </nav>
 
     <script>
-        // Data
         const products = [
-            { id: 1, name: "Cheesecake Maracuyá", price: 8.00, emoji: "🍰", desc: "Cremoso y refrescante, ideal para el calor.", category: "Tortas" },
-            { id: 2, name: "Torta de Chocolate", price: 10.00, emoji: "🎂", desc: "Húmeda, con fudge casero y chispas.", category: "Tortas" },
-            { id: 3, name: "Galleta Classic", price: 5.00, emoji: "🍪", desc: "La clásica con chispas de chocolate.", category: "Galletas" },
-            { id: 4, name: "Galleta Double Choco", price: 6.00, emoji: "🍫", desc: "Masa de chocolate con chispas de chocolate.", category: "Galletas" },
-            { id: 5, name: "Galleta Cookies & Cream", price: 6.00, emoji: "🥛", desc: "Con trozos de galleta Oreo y crema.", category: "Galletas" }
+            { id: 1, name: "Cheesecake Maracuyá", price: 8.00, emoji: "🍰", desc: "Cremoso y refrescante, ideal para el calor.", category: "Tortas", stock: 5 },
+            { id: 2, name: "Torta de Chocolate", price: 10.00, emoji: "🎂", desc: "Húmeda, con fudge casero y chispas.", category: "Tortas", stock: 3 },
+            { id: 3, name: "Galleta Classic", price: 5.00, emoji: "🍪", desc: "La clásica con chispas de chocolate.", category: "Galletas", stock: 12 },
+            { id: 4, name: "Galleta Double Choco", price: 6.00, emoji: "🍫", desc: "Masa de chocolate con chispas de chocolate.", category: "Galletas", stock: 8 },
+            { id: 5, name: "Galleta Cookies & Cream", price: 6.00, emoji: "🥛", desc: "Con trozos de galleta Oreo y crema.", category: "Galletas", stock: 2 }
         ];
 
         let cart = [];
@@ -516,23 +576,22 @@
         let currentQty = 1;
         let selectedToppings = [];
         let selectedPayment = 'Yape';
-        let userPoints = 50; // Puntos iniciales simulados
+        let userPoints = 50;
         let discountApplied = false;
         let userData = { name: '', phone: '' };
 
-        // Initialize
-        document.addEventListener('DOMContentLoaded', () => {
-            renderCatalog('Todos');
-        });
+        document.addEventListener('DOMContentLoaded', () => { renderCatalog('Todos'); });
 
-        // Render Catalog with Filter
         function renderCatalog(category) {
             const grid = document.getElementById('catalog');
             const filtered = category === 'Todos' ? products : products.filter(p => p.category === category);
             
             grid.innerHTML = filtered.map(p => `
                 <div class="product-card" onclick="openDetail(${p.id})">
-                    <div class="product-img">${p.emoji}</div>
+                    <div class="product-img">
+                        ${p.stock <= 3 ? `<div class="scarcity-tag">¡Solo quedan ${p.stock}!</div>` : ''}
+                        ${p.emoji}
+                    </div>
                     <div class="product-info">
                         <div class="product-name">${p.name}</div>
                         <div class="product-desc">${p.desc}</div>
@@ -551,7 +610,6 @@
             renderCatalog(category);
         }
 
-        // Navigation
         function openScreen(screenId) {
             document.getElementById(screenId).classList.add('active');
             document.body.style.overflow = 'hidden';
@@ -570,7 +628,6 @@
             document.getElementById('nav-home').classList.add('active');
         }
 
-        // Detail View Logic
         function openDetail(id) {
             currentProduct = products.find(p => p.id === id);
             currentQty = 1;
@@ -613,14 +670,14 @@
 
         function addToCart() {
             cart.push({ 
-                ...currentProduct, 
-                qty: currentQty, 
-                toppings: [...selectedToppings],
+                ...currentProduct, qty: currentQty, toppings: [...selectedToppings],
                 unitTotal: selectedToppings.reduce((sum, t) => sum + t.price, 0) + currentProduct.price
             });
             updateCartCount();
             closeScreen('detailScreen');
             
+            // Vibración háptica (Android) y animación
+            if (navigator.vibrate) navigator.vibrate(50);
             const btn = document.querySelector('.cart-btn');
             btn.style.transform = 'scale(1.2)';
             setTimeout(() => btn.style.transform = 'scale(1)', 200);
@@ -631,6 +688,7 @@
             cart.push({ ...product, qty: 1, toppings: [], unitTotal: product.price });
             updateCartCount();
             
+            if (navigator.vibrate) navigator.vibrate(30);
             const btn = event.target;
             btn.textContent = "✓";
             btn.style.background = "var(--dorado)";
@@ -640,7 +698,6 @@
             }, 800);
         }
 
-        // Cart Logic
         function updateCartCount() {
             const totalItems = cart.reduce((sum, item) => sum + item.qty, 0);
             document.getElementById('cartCount').textContent = totalItems;
@@ -719,11 +776,8 @@
             selectedPayment = method;
         }
 
-        // Registration Modal
         function confirmOrder() {
             if (cart.length === 0) return;
-            
-            // Check if user is registered for this session
             if (!userData.name || !userData.phone) {
                 document.getElementById('registerModal').classList.add('active');
             } else {
@@ -745,7 +799,6 @@
             }
         }
 
-        // WhatsApp Confirmation
         function sendWhatsApp() {
             const pickupPoint = document.getElementById('pickupPoint').value;
             const pickupTime = document.getElementById('pickupTime').value;
@@ -758,7 +811,7 @@
                     message += `   _(${item.toppings.map(t => t.name).join(', ')})_%0A`;
                 }
             });
-            message += `%0A📍 *Punto de recojo:* ${pickupPoint}`;
+            message += `%0A *Punto de recojo:* ${pickupPoint}`;
             message += `%0A⏰ *Hora:* ${pickupTime}`;
             message += `%0A💳 *Pago:* ${selectedPayment}`;
             if (discountApplied) message += `%0A🎟️ *Descuento:* Aplicado (50 pts)`;
@@ -767,7 +820,6 @@
             const phoneNumber = "51919577406";
             window.open(`https://wa.me/${phoneNumber}?text=${message}`, '_blank');
 
-            // Calculate points earned (10 points per sol)
             const pointsEarned = Math.floor(parseFloat(total) * 10);
             userPoints += pointsEarned;
             document.getElementById('headerPoints').textContent = userPoints;
@@ -778,7 +830,6 @@
             openScreen('confirmationScreen');
         }
 
-        // Rating Logic
         function rateExperience(event) {
             if (event.target.tagName === 'SPAN') {
                 const value = parseInt(event.target.getAttribute('data-value'));
@@ -787,7 +838,6 @@
                     if (index < value) star.classList.add('active');
                     else star.classList.remove('active');
                 });
-                
                 const texts = ["¡Oh no! Lo mejoraremos.", "Regular, podemos hacerlo mejor.", "¡Bien, pero podemos mejorar!", "¡Muy bueno! Gracias.", "¡Excelente! Nos encanta que te guste. "];
                 document.getElementById('ratingText').textContent = texts[value - 1];
             }
